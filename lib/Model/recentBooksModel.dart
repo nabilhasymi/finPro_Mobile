@@ -10,15 +10,17 @@ class RecentBooksModel {
   });
 
   RecentBooksModel.fromJson(Map<String, dynamic> json)
-    : status = json['status'] as String?,
-      total = json['total'] as int?,
-      books = (json['books'] as List?)?.map((dynamic e) => Books.fromJson(e as Map<String,dynamic>)).toList();
+      : status = json['status'] as String?,
+        total = json['total'] as int?,
+        books = (json['books'] as List?)
+            ?.map((dynamic e) => Books.fromJson(e as Map<String, dynamic>))
+            .toList();
 
   Map<String, dynamic> toJson() => {
-    'status' : status,
-    'total' : total,
-    'books' : books?.map((e) => e.toJson()).toList()
-  };
+        'status': status,
+        'total': total,
+        'books': books?.map((e) => e.toJson()).toList()
+      };
 }
 
 class Books {
@@ -39,19 +41,19 @@ class Books {
   });
 
   Books.fromJson(Map<String, dynamic> json)
-    : id = json['id'] as String?,
-      title = json['title'] as String?,
-      subtitle = json['subtitle'] as String?,
-      authors = json['authors'] as String?,
-      image = json['image'] as String?,
-      url = json['url'] as String?;
+      : id = json['id'] as String?,
+        title = json['title'] as String?,
+        subtitle = json['subtitle'] as String?,
+        authors = json['authors'] as String?,
+        image = json['image'] as String?,
+        url = json['url'] as String?;
 
   Map<String, dynamic> toJson() => {
-    'id' : id,
-    'title' : title,
-    'subtitle' : subtitle,
-    'authors' : authors,
-    'image' : image,
-    'url' : url
-  };
+        'id': id,
+        'title': title,
+        'subtitle': subtitle,
+        'authors': authors,
+        'image': image,
+        'url': url,
+      };
 }

@@ -7,8 +7,9 @@ class ApiDataSource {
     return BaseNetwork.get("recent");
   }
 
-  Future<Map<String, dynamic>> searchBooks(String Pencarian) {
-    return BaseNetwork.get("search/$Pencarian");
+  Future<Map<String, dynamic>> searchBooks(String QueryDiterima) {
+    String Query = QueryDiterima.toString();
+    return BaseNetwork.get("search/$Query");
   }
 
   Future<Map<String, dynamic>> detailsbook(int idDiterima) {

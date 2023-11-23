@@ -1,6 +1,5 @@
 import 'package:ebook_shop/Model/recentBooksModel.dart';
 import 'package:ebook_shop/Pages/HalamanDetailBuku.dart';
-//import 'package:ebook_shop/Pages/recentPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ebook_shop/API_DATA_SRC.dart';
@@ -76,6 +75,11 @@ class _PageListBooksState extends State<PageListBooks> {
   }
 
   Container _searchField() {
+    void updateList() {
+      //
+    }
+
+    final TextEditingController _searchController = TextEditingController();
     return Container(
       margin: EdgeInsets.only(top: 20, left: 20, right: 20),
       decoration: BoxDecoration(
@@ -87,18 +91,24 @@ class _PageListBooksState extends State<PageListBooks> {
           )
         ],
       ),
-      child: TextField(
+      child: TextFormField(
+        controller: _searchController,
         decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            contentPadding: EdgeInsets.all(15),
-            hintText: "Mathematic",
-            prefixIcon: Icon(Icons.search_outlined),
-            suffixIcon: Icon(Icons.filter_list_off_outlined),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide.none,
-            )),
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: EdgeInsets.all(15),
+          hintText: "Search",
+          prefixIcon: Icon(Icons.search_outlined),
+          //suffixIcon: Icon(Icons.filter_list),
+          suffixIcon: IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide.none,
+          ),
+        ),
       ),
     );
   }
@@ -154,7 +164,7 @@ class _PageListBooksState extends State<PageListBooks> {
           ),
         ),
         Container(
-          height: 300,
+          height: 350,
           //color: Colors.blue,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
@@ -162,7 +172,7 @@ class _PageListBooksState extends State<PageListBooks> {
             separatorBuilder: (BuildContext context, int index) =>
                 SizedBox(width: 15),
             itemBuilder: (BuildContext context, int index) {
-              return _buildItemArticles(books.books![index]);
+              return _buildItemBooks(books.books![index]);
             },
           ),
         ),
@@ -170,7 +180,7 @@ class _PageListBooksState extends State<PageListBooks> {
     );
   }
 
-  Widget _buildItemArticles(Books booksData) {
+  Widget _buildItemBooks(Books booksData) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
@@ -228,8 +238,27 @@ class _PageListBooksState extends State<PageListBooks> {
                       fontFamily: 'BebasNeue',
                       fontSize: 20.0,
                     ),
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.price_change_outlined,
+                        ),
+                        onPressed: () {
+                          // Tambahkan aksi yang ingin dilakukan saat ikon "more" ditekan
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
