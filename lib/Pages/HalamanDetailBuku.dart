@@ -12,13 +12,10 @@ class DetailBooks extends StatelessWidget {
       appBar: AppBar(
         title: Text(booksData.title! + " Detail"),
       ),
-      body: _buildArticleDetail(),
+      body: _buildBookDetail(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          launchUrl(Uri.parse(
-            booksData.url ?? '',
-          ));
-          // Aksi ketika FAB ditekan
+          _launchURL(booksData.url ?? '');
         },
         icon: Icon(Icons.link),
         label: Text('See More...'),
@@ -27,42 +24,47 @@ class DetailBooks extends StatelessWidget {
     );
   }
 
-  Widget _buildArticleDetail() {
+  Widget _buildBookDetail() {
     return SingleChildScrollView(
       padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.network(
-            booksData.image!, // Assuming imageUrl exists in the article data
+            booksData.image!, // Assuming imageUrl exists in the book data
             height: 200, // Set height as needed
             width: double.infinity, // Take full width
             fit: BoxFit.fitHeight, // Adjust the image to cover the space
           ),
           SizedBox(height: 20),
           Text(
-            booksData.title!, // Assuming title exists in the article data
+            booksData.title!, // Assuming title exists in the book data
             style: TextStyle(
               fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(height: 10),
           Text(
-            booksData.subtitle ??
-                '', // Assuming description exists in the article data
+            'SubTitle: ${booksData.subtitle ?? 'Tidak Ada Info'}',
             style: TextStyle(fontSize: 16),
           ),
-          // Add other details about the article as needed
+          SizedBox(height: 10),
+          Text(
+            'Penulis: ${booksData.authors ?? 'Tidak Ada Info'}',
+            style: TextStyle(fontSize: 16),
+          ),
+          // Other book details can be added here
         ],
       ),
     );
   }
-}
 
-Future<void> _launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

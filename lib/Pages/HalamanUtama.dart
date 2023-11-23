@@ -1,23 +1,46 @@
-import 'package:ebook_shop/Model/recentBooksModel.dart';
-import 'package:ebook_shop/Pages/HalamanDetailBuku.dart';
+//import 'dart:ffi';
+//import 'package:flutter/widgets.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:ebook_shop/Model/recentBooksModel.dart';
+import 'package:ebook_shop/Pages/HalamanCart.dart';
+import 'package:ebook_shop/Pages/HalamanDetailBuku.dart';
+import 'package:ebook_shop/Pages/HalamanProfile.dart';
+import 'package:ebook_shop/Pages/HalamanLogin.dart';
 import 'package:ebook_shop/API_DATA_SRC.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
 
-class PageListBooks extends StatefulWidget {
-  const PageListBooks({super.key});
+class HalamanUtama extends StatefulWidget {
+  const HalamanUtama({super.key});
 
   @override
-  State<PageListBooks> createState() => _PageListBooksState();
+  State<HalamanUtama> createState() => _HalamanUtamaState();
 }
 
-class _PageListBooksState extends State<PageListBooks> {
+class _HalamanUtamaState extends State<HalamanUtama> {
+  late SharedPreferences logindata;
+  late String username;
+  //@override
+  void initState() {
+    super.initState();
+    initial();
+  }
+
+  void initial() async {
+    logindata = await SharedPreferences.getInstance();
+    setState(() {
+      username = logindata.getString('username')!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(210, 171, 196, 191),
       appBar: AppBar(
         title: Text(
-          "DAFTAR BUKU",
+          "Welcome $username",
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'BebasNeue',
@@ -25,8 +48,22 @@ class _PageListBooksState extends State<PageListBooks> {
           ),
         ),
         centerTitle: true,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              logindata.setBool("Login", true);
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
+                return HalamanLogin();
+              }));
+            },
+          ),
+        ],
       ),
-      body: Column(
+      body: ListView(
+        padding: EdgeInsets.only(left: 16),
         children: [
           _searchField(),
           _buildListBooks(),
@@ -55,22 +92,32 @@ class _PageListBooksState extends State<PageListBooks> {
       ],
       onTap: (int index) {
         if (index == 0) {
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => PageListBooks()),
-          // );
         } else if (index == 1) {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => recentBooks()),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HalamanCart()),
+          );
         } else if (index == 2) {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => recentBooks()),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HalamanProfile()),
+          );
         }
       },
+    );
+  }
+
+  Widget _buildErrorSection() {
+    return Text("Error");
+  }
+
+  Widget _buildEmptySection() {
+    return Text("Empty");
+  }
+
+  Widget _buildLoadingSection() {
+    return Center(
+      child: CircularProgressIndicator(),
     );
   }
 
@@ -134,21 +181,20 @@ class _PageListBooksState extends State<PageListBooks> {
     );
   }
 
-  Widget _buildErrorSection() {
-    return Text("Error");
-  }
-
-  Widget _buildEmptySection() {
-    return Text("Empty");
-  }
-
-  Widget _buildLoadingSection() {
-    return Center(
-      child: CircularProgressIndicator(),
+  Widget _buildSuccessSection(RecentBooksModel books) {
+    return Column(
+      children: [
+        getRecentBooks(books),
+        getTopChartsBooks(books),
+        getFavoriteBooks(books),
+        SizedBox(
+          height: 20,
+        )
+      ],
     );
   }
 
-  Widget _buildSuccessSection(RecentBooksModel books) {
+  getRecentBooks(RecentBooksModel books) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -164,7 +210,7 @@ class _PageListBooksState extends State<PageListBooks> {
           ),
         ),
         Container(
-          height: 350,
+          height: 340,
           //color: Colors.blue,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
@@ -173,6 +219,72 @@ class _PageListBooksState extends State<PageListBooks> {
                 SizedBox(width: 15),
             itemBuilder: (BuildContext context, int index) {
               return _buildItemBooks(books.books![index]);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  getFavoriteBooks(RecentBooksModel books) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20, top: 20),
+          child: Text(
+            "Favorite:",
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'BebasNeue',
+              fontSize: 28.0,
+            ),
+          ),
+        ),
+        Container(
+          height: 340,
+          //color: Colors.blue,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: books.books!.length,
+            separatorBuilder: (BuildContext context, int index) =>
+                SizedBox(width: 15),
+            itemBuilder: (BuildContext context, int index) {
+              final reversedIndex = books.books!.length - 1 - index;
+              return _buildItemBooks(books.books![reversedIndex]);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  getTopChartsBooks(RecentBooksModel books) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20, top: 20),
+          child: Text(
+            "Top Chart:",
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'BebasNeue',
+              fontSize: 28.0,
+            ),
+          ),
+        ),
+        Container(
+          height: 340,
+          //color: Colors.blue,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: books.books!.length,
+            separatorBuilder: (BuildContext context, int index) =>
+                SizedBox(width: 15),
+            itemBuilder: (BuildContext context, int index) {
+              final randomIndex = Random().nextInt(books.books!.length);
+              return _buildItemBooks(books.books![randomIndex]);
             },
           ),
         ),
@@ -255,6 +367,12 @@ class _PageListBooksState extends State<PageListBooks> {
                           Icons.price_change_outlined,
                         ),
                         onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HalamanCart(),
+                            ),
+                          );
                           // Tambahkan aksi yang ingin dilakukan saat ikon "more" ditekan
                         },
                       ),

@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.9
   http: ^1.1.0
+  provider: ^5.0.0
+  shared_preferences: ^2.2.2
   url_launcher: ^6.2.1
 
 dependency_overides:
