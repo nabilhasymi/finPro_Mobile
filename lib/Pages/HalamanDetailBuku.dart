@@ -1,4 +1,4 @@
-import 'package:ebook_shop/Model/DetailedBooksModel.dart';
+
 import 'package:ebook_shop/Model/recentBooksModel.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
