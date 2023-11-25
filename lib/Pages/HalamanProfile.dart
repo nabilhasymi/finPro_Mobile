@@ -1,5 +1,5 @@
-import 'package:ebook_shop/Pages/HalamanCart.dart';
 import 'package:ebook_shop/Pages/HalamanKonversiMataUang.dart';
+import 'package:ebook_shop/Pages/HalamanRequestBuku.dart';
 import 'package:ebook_shop/Pages/HalamanUtama.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +14,8 @@ class HalamanProfile extends StatefulWidget {
 class _HalamanProfileState extends State<HalamanProfile> {
   late SharedPreferences logindata;
   late String username;
-  //@override
+
+  @override
   void initState() {
     super.initState();
     initial();
@@ -46,48 +47,69 @@ class _HalamanProfileState extends State<HalamanProfile> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            profile(),
+            CurrencyConverter(),
+            kesanPesan(),
+          ],
+        ),
+      ),
+      bottomNavigationBar: bottomNavBar(context),
+    );
+  }
+
+  Container profile() {
+    return Container(
+      //child: Image.network('assets/Background.jpg'),
+      color: Colors.blueAccent,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              color: Colors.blue,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    CircleAvatar(
-                      radius: 50.0,
-                      foregroundImage: AssetImage('../assets/profile.jpeg'),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(
-                      'Nabil Makarim Hasymi',
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                      '124210056',
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    //SizedBox(height: 10.0),
-                  ],
-                ),
+            CircleAvatar(
+              radius: 50.0,
+              foregroundImage: AssetImage('../assets/profile.jpeg'),
+            ),
+            SizedBox(height: 10.0),
+            Text(
+              'Nabil Makarim Hasymi',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
-            Container(
-                child: CurrencyConverter(),
-                color: Color.fromARGB(183, 181, 210, 239)),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+            Text(
+              '124210056',
+              style: TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container kesanPesan() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          //SizedBox(height: 10.0),
+          Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(height: 10.0),
+                children: [
                   Text(
                     'Kesan',
                     style: TextStyle(
@@ -95,11 +117,26 @@ class _HalamanProfileState extends State<HalamanProfile> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  //SizedBox(height: 8.0),
                   Text(
                     'Mata Kuliah Pemrograman Aplikasi Mobile yang saya ampu terasa sangat menyenangkan dan menantang. \nSemoga ke depannya saya dapat menerapkan ilmu yang didapat dengan sebaik-baiknya.',
                     style: TextStyle(fontSize: 16.0),
                   ),
-                  SizedBox(height: 10.0),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
                     'Pesan',
                     style: TextStyle(
@@ -107,18 +144,17 @@ class _HalamanProfileState extends State<HalamanProfile> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  //SizedBox(height: 8.0),
                   Text(
-                    'Semoga Pak Bagus berbaik hati memberikan nilai akhir saya dengan maksimal',
+                    'Semoga Pak Bagus mendapat hidayah agar memberi nilai akhir saya A',
                     style: TextStyle(fontSize: 16.0),
                   ),
-                  SizedBox(height: 20.0),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-      bottomNavigationBar: bottomNavBar(context),
     );
   }
 
@@ -149,7 +185,7 @@ class _HalamanProfileState extends State<HalamanProfile> {
         } else if (index == 1) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HalamanCart()),
+            MaterialPageRoute(builder: (context) => HalamanRequestBuku()),
           );
         } else if (index == 2) {}
       },

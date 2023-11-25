@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-//import 'package:intl/date_symbol_data_local.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -17,6 +16,7 @@ class _ClockPageState extends State<ClockPage> {
   late String WIB = '';
   late String WITA = '';
   late String WIT = '';
+  late String London = '';
 
   @override
   void initState() {
@@ -39,11 +39,13 @@ class _ClockPageState extends State<ClockPage> {
       _time = _format.format(now);
 
       WIB = _format.format(
-          DateTime.now().toUtc().add(Duration(hours: 7))); // Jakarta is UTC+7
+          DateTime.now().toUtc().add(Duration(hours: 7))); // WIB is UTC+7
       WITA = _format.format(
-          DateTime.now().toUtc().add(Duration(hours: 8))); // Tokyo is UTC+9
+          DateTime.now().toUtc().add(Duration(hours: 8))); // WITA is UTC+9
       WIT = _format.format(
-          DateTime.now().toUtc().add(Duration(hours: 9))); // London is UTC+0
+          DateTime.now().toUtc().add(Duration(hours: 9))); // WIT is UTC+0
+      London = _format.format(
+          DateTime.now().toUtc().add(Duration(hours: 0))); // London is UTC+0
     });
   }
 
@@ -116,7 +118,7 @@ class _ClockPageState extends State<ClockPage> {
                   ),
                 ),
               ),
-              //SizedBox(width: 4),
+
               Expanded(
                 child: Card(
                   elevation: 4.0,
@@ -181,6 +183,33 @@ class _ClockPageState extends State<ClockPage> {
                 ),
               ),
             ],
+          ),
+          Card(
+            elevation: 4.0,
+            child: Padding(
+              padding: EdgeInsets.only(top: 8, bottom: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.globe,
+                        size: 15,
+                      ),
+                      Text(
+                        ' London Time:',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    London,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),

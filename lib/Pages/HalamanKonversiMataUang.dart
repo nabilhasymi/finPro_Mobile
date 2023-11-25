@@ -6,64 +6,135 @@ class CurrencyConverter extends StatefulWidget {
 }
 
 class _CurrencyConverterState extends State<CurrencyConverter> {
-  late TextEditingController _controller;
-  double _rupiahAmount = 0;
-  double _dollarAmount = 0;
-  double _euroAmount = 0;
+  String _fromCurrency = 'IDR'; // Mata uang asal (Rupiah)
+  String _toCurrency = 'USD'; // Mata uang yang dituju (Dollar)
+  double _amount = 0;
+  double _convertedAmount = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-  }
+  Map<String, double> _conversionRates = {
+    'IDR': 1, // Nilai konversi Rupiah terhadap dirinya sendiri adalah 1
+    'USD': 0.000070,
+    'EUR': 0.000061,
+  };
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void convertCurrency(String value) {
-    if (value.isEmpty) {
-      setState(() {
-        _rupiahAmount = 0;
-        _dollarAmount = 0;
-        _euroAmount = 0;
-      });
-      return;
-    }
-
-    double amount = double.tryParse(value) ?? 0;
-
+  void _convertCurrency() {
     setState(() {
-      _rupiahAmount = amount;
-      _dollarAmount = amount * 0.000068; // 1 Rupiah = 0.000068 Dollar
-      _euroAmount = amount * 0.000061; // 1 Rupiah = 0.000061 Euro
+      _convertedAmount = _amount *
+          (_conversionRates[_toCurrency]! / _conversionRates[_fromCurrency]!);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return Container(
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5), // Warna bayangan
+            spreadRadius: 5, // Jarak penyebaran bayangan
+            blurRadius: 7, // Tingkat kabur pada bayangan
+            offset: Offset(0, 3), // Perpindahan bayangan dari kotak aslinya
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          //SizedBox(height: 20),
+          Text('Masukan Nilai Mata Uang', style: TextStyle(fontSize: 18)),
+          SizedBox(height: 10),
           TextField(
-            controller: _controller,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Enter amount in Rupiah',
               border: OutlineInputBorder(),
+              hintText: 'cth: 10000',
             ),
-            onChanged: convertCurrency,
+            onChanged: (value) {
+              setState(() {
+                _amount = double.tryParse(value) ?? 0;
+                _convertCurrency();
+              });
+            },
           ),
           SizedBox(height: 20),
-          Text('Converted Amounts:'),
-          SizedBox(height: 10),
-          Text('Dollar: \$ $_dollarAmount'),
-          SizedBox(height: 10),
-          Text('Euro: € $_euroAmount'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: DropdownButton<String>(
+                  value: _fromCurrency,
+                  items: _conversionRates.keys.map((String currency) {
+                    return DropdownMenuItem<String>(
+                      value: currency,
+                      child: Text(currency),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _fromCurrency = newValue!;
+                      _convertCurrency();
+                    });
+                  },
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    var temp = _fromCurrency;
+                    _fromCurrency = _toCurrency;
+                    _toCurrency = temp;
+                    _convertCurrency();
+                  });
+                },
+                icon: Icon(Icons.swap_horiz),
+              ),
+              Expanded(
+                child: DropdownButton<String>(
+                  value: _toCurrency,
+                  items: _conversionRates.keys.map((String currency) {
+                    return DropdownMenuItem<String>(
+                      value: currency,
+                      child: Text(currency),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _toCurrency = newValue!;
+                      _convertCurrency();
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Container(
+            padding: EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.blueGrey.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text('Converted Amount:', style: TextStyle(fontSize: 18)),
+                SizedBox(height: 10),
+                _convertedAmount != 0
+                    ? Text(
+                        '${_convertedAmount.toStringAsFixed(2)} $_toCurrency',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
+          ),
         ],
       ),
     );
