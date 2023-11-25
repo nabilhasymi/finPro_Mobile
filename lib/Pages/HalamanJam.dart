@@ -166,7 +166,7 @@ class _ClockPageState extends State<ClockPage> {
                               size: 15,
                             ),
                             Text(
-                              ' WITA Time',
+                              ' WIT Time',
                               style: TextStyle(fontSize: 16),
                             ),
                           ],
@@ -198,7 +198,7 @@ class _ClockPageState extends State<ClockPage> {
                         size: 15,
                       ),
                       Text(
-                        ' London Time:',
+                        ' London Time: ',
                         style: TextStyle(fontSize: 16),
                       ),
                     ],
