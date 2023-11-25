@@ -34,7 +34,7 @@ class _HalamanCartState extends State<HalamanCart> {
           ),
         ),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        //automaticallyImplyLeading: false,
       ),
       body: ListView.builder(
         itemCount: cartItems.length,
@@ -87,7 +87,7 @@ class _HalamanCartState extends State<HalamanCart> {
           );
         },
       ),
-      bottomNavigationBar: bottomNavBar(context),
+      //bottomNavigationBar: bottomNavBar(context),
     );
   }
 

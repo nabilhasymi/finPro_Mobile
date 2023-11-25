@@ -1,6 +1,6 @@
-//import 'dart:ffi';
-//import 'package:flutter/widgets.dart';
 import 'dart:math';
+import 'package:ebook_shop/Pages/HalamanJam.dart';
+import 'package:ebook_shop/Pages/HalamanRequestBuku.dart';
 import 'package:flutter/material.dart';
 import 'package:ebook_shop/Model/recentBooksModel.dart';
 import 'package:ebook_shop/Pages/HalamanCart.dart';
@@ -9,7 +9,6 @@ import 'package:ebook_shop/Pages/HalamanProfile.dart';
 import 'package:ebook_shop/Pages/HalamanLogin.dart';
 import 'package:ebook_shop/API_DATA_SRC.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/cupertino.dart';
 
 class HalamanUtama extends StatefulWidget {
   const HalamanUtama({super.key});
@@ -63,9 +62,10 @@ class _HalamanUtamaState extends State<HalamanUtama> {
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.only(left: 16),
+        //padding: EdgeInsets.only(left: 16),
         children: [
-          _searchField(),
+          ClockPage(),
+          //_searchField(),
           _buildListBooks(),
         ],
       ),
@@ -95,7 +95,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
         } else if (index == 1) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HalamanCart()),
+            MaterialPageRoute(builder: (context) => HalamanRequestBuku()),
           );
         } else if (index == 2) {
           Navigator.push(
@@ -162,6 +162,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
 
   Widget _buildListBooks() {
     return Container(
+      padding: EdgeInsets.only(left: 8),
       child: FutureBuilder(
         future: ApiDataSource.instance.recentBooks(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -199,7 +200,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20, top: 20),
+          padding: const EdgeInsets.only(left: 20, top: 8),
           child: Text(
             "Newest:",
             style: TextStyle(

@@ -12,8 +12,8 @@ class ApiDataSource {
     return BaseNetwork.get("search/$Query");
   }
 
-  Future<Map<String, dynamic>> detailsbook(int idDiterima) {
-    String id = idDiterima.toString();
+  Future<Map<String, dynamic>> detailsbook(String idDiterima) {
+    String id = idDiterima;
     return BaseNetwork.get("books/$id");
   }
 }

@@ -1,4 +1,5 @@
 import 'package:ebook_shop/Pages/HalamanCart.dart';
+import 'package:ebook_shop/Pages/HalamanKonversiMataUang.dart';
 import 'package:ebook_shop/Pages/HalamanUtama.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,6 +75,7 @@ class _HalamanProfileState extends State<HalamanProfile> {
                           fontWeight: FontWeight.w300),
                     ),
                     //SizedBox(height: 10.0),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -106,6 +108,9 @@ class _HalamanProfileState extends State<HalamanProfile> {
                 ),
               ),
             ),
+            Container(
+                child: CurrencyConverter(),
+                color: Color.fromARGB(183, 181, 210, 239)),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(

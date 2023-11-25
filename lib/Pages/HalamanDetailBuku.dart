@@ -1,8 +1,10 @@
+import 'package:ebook_shop/Model/DetailedBooksModel.dart';
 import 'package:ebook_shop/Model/recentBooksModel.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailBooks extends StatelessWidget {
+  //final DetailedBooksModel booksData;
   final Books booksData;
   const DetailBooks({Key? key, required this.booksData}) : super(key: key);
 
@@ -15,7 +17,7 @@ class DetailBooks extends StatelessWidget {
       body: _buildBookDetail(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          _launchURL(booksData.url ?? '');
+          _launchURL(booksData.url!);
         },
         icon: Icon(Icons.link),
         label: Text('See More...'),
@@ -46,12 +48,17 @@ class DetailBooks extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            'SubTitle: ${booksData.subtitle ?? 'Tidak Ada Info'}',
+            'SubTitle: ${booksData.subtitle}',
             style: TextStyle(fontSize: 16),
           ),
           SizedBox(height: 10),
           Text(
-            'Penulis: ${booksData.authors ?? 'Tidak Ada Info'}',
+            'Penulis: ${booksData.authors}',
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Deskripsi: ',
             style: TextStyle(fontSize: 16),
           ),
           // Other book details can be added here
