@@ -56,11 +56,11 @@ class _HalamanProfileState extends State<HalamanProfile> {
                   children: <Widget>[
                     CircleAvatar(
                       radius: 50.0,
-                      backgroundImage: AssetImage('assets/profile_image.jpg'),
+                      foregroundImage: AssetImage('../assets/profile.jpeg'),
                     ),
                     SizedBox(height: 10.0),
                     Text(
-                      'Haii, $username',
+                      'Nabil Makarim Hasymi',
                       style: TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
@@ -68,42 +68,13 @@ class _HalamanProfileState extends State<HalamanProfile> {
                       ),
                     ),
                     Text(
-                      'Level',
+                      '124210056',
                       style: TextStyle(
                           fontSize: 16.0,
                           color: Colors.white,
                           fontWeight: FontWeight.w300),
                     ),
                     //SizedBox(height: 10.0),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            // Aksi ketika saldo ditekan
-                            print('Saldo ditekan');
-                          },
-                          child: Text(
-                            'Rp XX.XXX.XXX',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            // Aksi ketika pengaturan ditekan
-                            print('Pengaturan ditekan');
-                          },
-                          child: Icon(
-                            Icons.settings,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),
@@ -112,113 +83,35 @@ class _HalamanProfileState extends State<HalamanProfile> {
                 child: CurrencyConverter(),
                 color: Color.fromARGB(183, 181, 210, 239)),
             Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Riwayat Transaksi',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-                  // ListView dengan scroll horizontal untuk riwayat transaksi
-                  Container(
-                    height: 120.0, // Tinggi item transaksi
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10, // Jumlah transaksi
-                      itemBuilder: (BuildContext context, int index) {
-                        // Widget untuk menampilkan setiap item transaksi
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          elevation: 4, // memberikan efek shadow
-                          child: Container(
-                            width: 120.0, // Lebar item transaksi
-                            padding: EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text('Transaksi $index'),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
               padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  SizedBox(height: 10.0),
                   Text(
-                    'Tentang Saya',
+                    'Kesan',
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  Text(
+                    'Mata Kuliah Pemrograman Aplikasi Mobile yang saya ampu terasa sangat menyenangkan dan menantang. \nSemoga ke depannya saya dapat menerapkan ilmu yang didapat dengan sebaik-baiknya.',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
                   SizedBox(height: 10.0),
                   Text(
-                    'Seorang pengembang Flutter yang senang membuat aplikasi yang menarik dan bermanfaat.',
+                    'Pesan',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Semoga Pak Bagus berbaik hati memberikan nilai akhir saya dengan maksimal',
                     style: TextStyle(fontSize: 16.0),
                   ),
                   SizedBox(height: 20.0),
-                  Text(
-                    'Kontak',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-                  Row(
-                    children: <Widget>[
-                      Icon(Icons.email),
-                      SizedBox(width: 10.0),
-                      Text('john.doe@email.com'),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Icon(Icons.phone),
-                      SizedBox(width: 10.0),
-                      Text('+1234567890'),
-                    ],
-                  ),
-                  SizedBox(height: 20.0),
-                  GestureDetector(
-                    onTap: () {
-                      // Aksi ketika edit profil ditekan
-                      print('Edit Profil ditekan');
-                    },
-                    child: Container(
-                      color: Colors.blue,
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
-                          SizedBox(width: 5.0),
-                          Text(
-                            'Edit Profil',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

@@ -14,9 +14,9 @@ class _ClockPageState extends State<ClockPage> {
   late Timer _timer;
   late DateFormat _format;
   late String _time = '';
-  late String _jakartaTime = '';
-  late String _tokyoTime = '';
-  late String _londonTime = '';
+  late String WIB = '';
+  late String WITA = '';
+  late String WIT = '';
 
   @override
   void initState() {
@@ -38,12 +38,12 @@ class _ClockPageState extends State<ClockPage> {
       DateTime now = DateTime.now();
       _time = _format.format(now);
 
-      _jakartaTime = _format.format(
+      WIB = _format.format(
           DateTime.now().toUtc().add(Duration(hours: 7))); // Jakarta is UTC+7
-      _tokyoTime = _format.format(
-          DateTime.now().toUtc().add(Duration(hours: 9))); // Tokyo is UTC+9
-      _londonTime = _format.format(
-          DateTime.now().toUtc().add(Duration(hours: 0))); // London is UTC+0
+      WITA = _format.format(
+          DateTime.now().toUtc().add(Duration(hours: 8))); // Tokyo is UTC+9
+      WIT = _format.format(
+          DateTime.now().toUtc().add(Duration(hours: 9))); // London is UTC+0
     });
   }
 
@@ -100,14 +100,14 @@ class _ClockPageState extends State<ClockPage> {
                               size: 15,
                             ),
                             Text(
-                              ' Jakarta Time',
+                              ' WIB Time',
                               style: TextStyle(fontSize: 16),
                             ),
                           ],
                         ),
                         SizedBox(height: 4),
                         Text(
-                          _jakartaTime,
+                          WIB,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -132,14 +132,14 @@ class _ClockPageState extends State<ClockPage> {
                               size: 15,
                             ),
                             Text(
-                              ' Tokyo Time',
+                              ' WITA Time',
                               style: TextStyle(fontSize: 16),
                             ),
                           ],
                         ),
                         SizedBox(height: 4),
                         Text(
-                          _tokyoTime,
+                          WITA,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -164,14 +164,14 @@ class _ClockPageState extends State<ClockPage> {
                               size: 15,
                             ),
                             Text(
-                              ' London Time',
+                              ' WITA Time',
                               style: TextStyle(fontSize: 16),
                             ),
                           ],
                         ),
                         SizedBox(height: 4),
                         Text(
-                          _londonTime,
+                          WIT,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
