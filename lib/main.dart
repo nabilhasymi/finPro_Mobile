@@ -1,7 +1,5 @@
-import 'package:ebook_shop/Pages/HalamanProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:ebook_shop/Pages/HalamanLogin.dart';
-
 import 'package:hive_flutter/adapters.dart';
 import 'Model/RequestBukuModel.dart';
 
@@ -21,7 +19,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HalamanProfile(),
+      home: HalamanLogin(),
     );
   }
 }
