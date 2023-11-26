@@ -13,6 +13,33 @@ class _HalamanLoginState extends State<HalamanLogin> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  late SharedPreferences logindata;
+  late bool newuser;
+
+  @override
+  void initState() {
+// TODO: implement initState
+    super.initState();
+    check_if_already_login();
+  }
+
+  void check_if_already_login() async {
+    logindata = await SharedPreferences.getInstance();
+    newuser = (logindata.getBool('login') ?? true);
+    print(newuser);
+    if (newuser == false) {
+      Navigator.pushReplacement(
+          context, new MaterialPageRoute(builder: (context) => HalamanUtama()));
+    }
+  }
+
+  void dispose() {
+// Clean up the controller when the widget is disposed.
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   // Enkripsi kata sandi sebelum disimpan
   String _encryptPassword(String password) {
     final key = encrypt.Key.fromLength(32);
@@ -30,22 +57,16 @@ class _HalamanLoginState extends State<HalamanLogin> {
     // Contoh validasi sederhana, bisa disesuaikan dengan kebutuhan
     if (enteredUsername == 'user' && enteredPassword == 'password') {
       final encryptedPassword = _encryptPassword(enteredPassword);
-      _saveLoginStatus(enteredUsername, encryptedPassword);
+      logindata.setBool('login', false);
+      logindata.setString('username', enteredUsername);
+      logindata.setString('password', encryptedPassword);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HalamanUtama()),
       );
     } else {
-      _showErrorDialog('Login failed. Please try again.');
+      _showErrorDialog('Login Gagal. Silahkan Coba Lagi');
     }
-  }
-
-  // Menyimpan status login dengan shared preferences
-  void _saveLoginStatus(String username, String encryptedPassword) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('username', username);
-    prefs.setString('password', encryptedPassword);
-    prefs.setBool('isLoggedIn', true);
   }
 
   void _showErrorDialog(String message) {

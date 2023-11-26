@@ -50,6 +50,7 @@ class _HalamanProfileState extends State<HalamanProfile> {
           children: [
             profile(),
             CurrencyConverter(),
+            //RiwayatTransaksi(),
             kesanPesan(),
           ],
         ),
@@ -60,8 +61,23 @@ class _HalamanProfileState extends State<HalamanProfile> {
 
   Container profile() {
     return Container(
-      //child: Image.network('assets/Background.jpg'),
-      color: Colors.blueAccent,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black
+                .withOpacity(0.4), // Warna bayangan (hitam dengan opasitas 40%)
+            spreadRadius: 5, // Radius penyebaran bayangan
+            blurRadius: 7, // Radius blur bayangan
+            offset:
+                Offset(0, 3), // Geser bayangan secara horizontal dan vertikal
+          ),
+        ],
+        image: DecorationImage(
+          image: AssetImage(
+              'assets/Background.jpg'), // Ganti dengan path gambar Anda
+          fit: BoxFit.cover, // Atur metode tata letak gambar
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -75,20 +91,63 @@ class _HalamanProfileState extends State<HalamanProfile> {
             Text(
               'Nabil Makarim Hasymi',
               style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'BebasNeue',
                 fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
               ),
             ),
             Text(
               '124210056',
               style: TextStyle(
                   fontSize: 16.0,
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.w300),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Container RiwayatTransaksi() {
+    return Container(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Riwayat Transaksi',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          // ListView dengan scroll horizontal untuk riwayat transaksi
+          Container(
+            height: 120.0, // Tinggi item transaksi
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 10, // Jumlah transaksi
+              itemBuilder: (BuildContext context, int index) {
+                // Widget untuk menampilkan setiap item transaksi
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  elevation: 4, // memberikan efek shadow
+                  child: Container(
+                    width: 120.0, // Lebar item transaksi
+                    padding: EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text('Transaksi $index'),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -113,13 +172,14 @@ class _HalamanProfileState extends State<HalamanProfile> {
                   Text(
                     'Kesan',
                     style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: 'BebasNeue',
+                      fontSize: 28.0,
                     ),
                   ),
-                  //SizedBox(height: 8.0),
+                  SizedBox(height: 4.0),
                   Text(
-                    'Mata Kuliah Pemrograman Aplikasi Mobile yang saya ampu terasa sangat menyenangkan dan menantang. \nSemoga ke depannya saya dapat menerapkan ilmu yang didapat dengan sebaik-baiknya.',
+                    'Mata Kuliah Pemrograman Aplikasi Mobile terasa sangat menyenangkan dan menantang. \nSemoga ke depannya saya dapat menerapkan ilmu yang didapat dengan sebaik-baiknya.',
                     style: TextStyle(fontSize: 16.0),
                   ),
                 ],
@@ -140,13 +200,14 @@ class _HalamanProfileState extends State<HalamanProfile> {
                   Text(
                     'Pesan',
                     style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: 'BebasNeue',
+                      fontSize: 28.0,
                     ),
                   ),
-                  //SizedBox(height: 8.0),
+                  SizedBox(height: 4.0),
                   Text(
-                    'Semoga Pak Bagus mendapat hidayah agar memberi nilai akhir saya A',
+                    'Semoga Pak Bagus mendapat hidayah agar mau memberi nilai saya A',
                     style: TextStyle(fontSize: 16.0),
                   ),
                 ],

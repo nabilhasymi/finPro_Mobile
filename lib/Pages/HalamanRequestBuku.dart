@@ -43,7 +43,7 @@ class _HalamanRequestBukuState extends State<HalamanRequestBuku> {
         builder: (BuildContext context, value, Widget? child) {
           if (_myBox.values.isEmpty) {
             return Center(
-              child: Text("File Empty"),
+              child: Text("Tidak ada Request"),
             );
           }
           return ListView.builder(

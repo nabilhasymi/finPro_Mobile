@@ -1,5 +1,7 @@
-
 import 'package:ebook_shop/Model/recentBooksModel.dart';
+import 'package:ebook_shop/Pages/HalamanProfile.dart';
+import 'package:ebook_shop/Pages/HalamanRequestBuku.dart';
+import 'package:ebook_shop/Pages/HalamanUtama.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,6 +25,7 @@ class DetailBooks extends StatelessWidget {
         label: Text('See More...'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      bottomNavigationBar: bottomNavBar(context),
     );
   }
 
@@ -66,12 +69,50 @@ class DetailBooks extends StatelessWidget {
       ),
     );
   }
+}
 
-  Future<void> _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+BottomNavigationBar bottomNavBar(BuildContext context) {
+  return BottomNavigationBar(
+    selectedItemColor: Colors.blue,
+    items: [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: 'Home',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.shopping_cart_outlined),
+        label: 'Cart',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.person_2_outlined),
+        label: 'Profile',
+      ),
+    ],
+    onTap: (int index) {
+      if (index == 0) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HalamanUtama()),
+        );
+      } else if (index == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HalamanRequestBuku()),
+        );
+      } else if (index == 2) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HalamanProfile()),
+        );
+      }
+    },
+  );
+}
+
+Future<void> _launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

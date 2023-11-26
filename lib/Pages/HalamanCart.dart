@@ -1,15 +1,14 @@
 import 'package:ebook_shop/Pages/HalamanProfile.dart';
 import 'package:ebook_shop/Pages/HalamanUtama.dart';
 import 'package:flutter/material.dart';
+import 'package:ebook_shop/Model/recentBooksModel.dart';
 //import '../Model/recentBooksModel.dart';
 
 class HalamanCart extends StatefulWidget {
-  //final Books booksData;
+  final Books booksData;
   //final String bookTitle;
 
-  const HalamanCart({
-    Key? key,
-  }) : super(key: key);
+  const HalamanCart({Key? key, required this.booksData}) : super(key: key);
 
   @override
   State<HalamanCart> createState() => _HalamanCartState();
@@ -43,11 +42,21 @@ class _HalamanCartState extends State<HalamanCart> {
             margin: EdgeInsets.all(8.0),
             child: ListTile(
               leading: CircleAvatar(
-                // Ganti dengan gambar produk atau ikon
-                child: Text('Item ${index + 1}'),
+                backgroundColor: Colors
+                    .transparent, // Jika ingin menghilangkan warna latar belakang bawaan dari CircleAvatar
+                radius: 30, // Sesuaikan dengan ukuran yang diinginkan
+                child: ClipPath(
+                  child: Image.network(
+                    widget.booksData.image!,
+                    fit: BoxFit
+                        .fitHeight, // Sesuaikan dengan kebutuhan: cover, contain, dll.
+                    height: 60, // Sesuaikan dengan tinggi yang diinginkan
+                    width: 60, // Sesuaikan dengan lebar yang diinginkan
+                  ),
+                ),
               ),
               title: Text(
-                "Produk " + '(${cartItems[index]})',
+                widget.booksData.title! + ' (${cartItems[index]})',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text('Harga: \$XX'),
@@ -88,6 +97,37 @@ class _HalamanCartState extends State<HalamanCart> {
         },
       ),
       //bottomNavigationBar: bottomNavBar(context),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          checkout(); // Panggil fungsi checkout ketika tombol ditekan
+        },
+        label: Text('Checkout'),
+        icon: Icon(Icons.shopping_cart),
+      ),
+    );
+  }
+
+  void checkout() {
+    // Lakukan proses checkout di sini, misalnya proses pembayaran, pengiriman, dll.
+    //double totalPrice = calculateTotalPrice();
+    // Misalnya, tampilkan total harga atau lakukan tindakan lain terkait checkout
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Total Harga: '),
+          content: Text('Proses pembayaran dan pengiriman dilakukan di sini.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // Lakukan tindakan setelah checkout (jika diperlukan)
+                Navigator.of(context).pop();
+              },
+              child: Text('Tutup'),
+            ),
+          ],
+        );
+      },
     );
   }
 

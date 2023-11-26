@@ -20,7 +20,9 @@ class HalamanUtama extends StatefulWidget {
 class _HalamanUtamaState extends State<HalamanUtama> {
   late SharedPreferences logindata;
   late String username;
-  //@override
+  late String password;
+
+  @override
   void initState() {
     super.initState();
     initial();
@@ -30,6 +32,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
     logindata = await SharedPreferences.getInstance();
     setState(() {
       username = logindata.getString('username')!;
+      password = logindata.getString('password')!;
     });
   }
 
@@ -52,9 +55,9 @@ class _HalamanUtamaState extends State<HalamanUtama> {
           IconButton(
             icon: Icon(Icons.exit_to_app),
             onPressed: () {
-              logindata.setBool("Login", true);
+              logindata.setBool("login", true);
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) {
+                  new MaterialPageRoute(builder: (context) {
                 return HalamanLogin();
               }));
             },
@@ -62,7 +65,6 @@ class _HalamanUtamaState extends State<HalamanUtama> {
         ],
       ),
       body: ListView(
-        //padding: EdgeInsets.only(left: 16),
         children: [
           ClockPage(),
           //_searchField(),
@@ -73,46 +75,8 @@ class _HalamanUtamaState extends State<HalamanUtama> {
     );
   }
 
-  BottomNavigationBar bottomNavBar(BuildContext context) {
-    return BottomNavigationBar(
-      selectedItemColor: Colors.blue,
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart_outlined),
-          label: 'Cart',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_2_outlined),
-          label: 'Profile',
-        ),
-      ],
-      onTap: (int index) {
-        if (index == 0) {
-        } else if (index == 1) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HalamanRequestBuku()),
-          );
-        } else if (index == 2) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HalamanProfile()),
-          );
-        }
-      },
-    );
-  }
-
   Widget _buildErrorSection() {
     return Text("Error");
-  }
-
-  Widget _buildEmptySection() {
-    return Text("Empty");
   }
 
   Widget _buildLoadingSection() {
@@ -121,42 +85,16 @@ class _HalamanUtamaState extends State<HalamanUtama> {
     );
   }
 
-  Container _searchField() {
-    void updateList() {
-      //
-    }
-
-    final TextEditingController _searchController = TextEditingController();
-    return Container(
-      margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.11),
-            blurRadius: 40,
-            spreadRadius: 0.0,
-          )
-        ],
-      ),
-      child: TextFormField(
-        controller: _searchController,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding: EdgeInsets.all(15),
-          hintText: "Search",
-          prefixIcon: Icon(Icons.search_outlined),
-          //suffixIcon: Icon(Icons.filter_list),
-          suffixIcon: IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide.none,
-          ),
-        ),
-      ),
+  Widget _buildSuccessSection(RecentBooksModel books) {
+    return Column(
+      children: [
+        getRecentBooks(books),
+        getTopChartsBooks(books),
+        getFavoriteBooks(books),
+        SizedBox(
+          height: 20,
+        )
+      ],
     );
   }
 
@@ -179,117 +117,6 @@ class _HalamanUtamaState extends State<HalamanUtama> {
           return _buildLoadingSection();
         },
       ),
-    );
-  }
-
-  Widget _buildSuccessSection(RecentBooksModel books) {
-    return Column(
-      children: [
-        getRecentBooks(books),
-        getTopChartsBooks(books),
-        getFavoriteBooks(books),
-        SizedBox(
-          height: 20,
-        )
-      ],
-    );
-  }
-
-  getRecentBooks(RecentBooksModel books) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20, top: 8),
-          child: Text(
-            "Newest:",
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: 'BebasNeue',
-              fontSize: 28.0,
-            ),
-          ),
-        ),
-        Container(
-          height: 340,
-          //color: Colors.blue,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: books.books!.length,
-            separatorBuilder: (BuildContext context, int index) =>
-                SizedBox(width: 15),
-            itemBuilder: (BuildContext context, int index) {
-              return _buildItemBooks(books.books![index]);
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  getFavoriteBooks(RecentBooksModel books) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20, top: 20),
-          child: Text(
-            "Favorite:",
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: 'BebasNeue',
-              fontSize: 28.0,
-            ),
-          ),
-        ),
-        Container(
-          height: 340,
-          //color: Colors.blue,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: books.books!.length,
-            separatorBuilder: (BuildContext context, int index) =>
-                SizedBox(width: 15),
-            itemBuilder: (BuildContext context, int index) {
-              final reversedIndex = books.books!.length - 1 - index;
-              return _buildItemBooks(books.books![reversedIndex]);
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  getTopChartsBooks(RecentBooksModel books) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20, top: 20),
-          child: Text(
-            "Top Chart:",
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: 'BebasNeue',
-              fontSize: 28.0,
-            ),
-          ),
-        ),
-        Container(
-          height: 340,
-          //color: Colors.blue,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: books.books!.length,
-            separatorBuilder: (BuildContext context, int index) =>
-                SizedBox(width: 15),
-            itemBuilder: (BuildContext context, int index) {
-              final randomIndex = Random().nextInt(books.books!.length);
-              return _buildItemBooks(books.books![randomIndex]);
-            },
-          ),
-        ),
-      ],
     );
   }
 
@@ -356,35 +183,181 @@ class _HalamanUtamaState extends State<HalamanUtama> {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.price_change_outlined,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HalamanCart(),
-                            ),
-                          );
-                          // Tambahkan aksi yang ingin dilakukan saat ikon "more" ditekan
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),
       ),
     );
   }
+
+  getRecentBooks(RecentBooksModel books) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20, top: 8),
+          child: Text(
+            "Newest:",
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'BebasNeue',
+              fontSize: 28.0,
+            ),
+          ),
+        ),
+        Container(
+          height: 300,
+          //color: Colors.blue,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: books.books!.length,
+            separatorBuilder: (BuildContext context, int index) =>
+                SizedBox(width: 15),
+            itemBuilder: (BuildContext context, int index) {
+              return _buildItemBooks(books.books![index]);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  getFavoriteBooks(RecentBooksModel books) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20, top: 20),
+          child: Text(
+            "Favorite:",
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'BebasNeue',
+              fontSize: 28.0,
+            ),
+          ),
+        ),
+        Container(
+          height: 300,
+          //color: Colors.blue,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: books.books!.length,
+            separatorBuilder: (BuildContext context, int index) =>
+                SizedBox(width: 15),
+            itemBuilder: (BuildContext context, int index) {
+              final reversedIndex = books.books!.length - 1 - index;
+              return _buildItemBooks(books.books![reversedIndex]);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  getTopChartsBooks(RecentBooksModel books) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20, top: 20),
+          child: Text(
+            "Top Chart:",
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'BebasNeue',
+              fontSize: 28.0,
+            ),
+          ),
+        ),
+        Container(
+          height: 300,
+          //color: Colors.blue,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: books.books!.length,
+            separatorBuilder: (BuildContext context, int index) =>
+                SizedBox(width: 15),
+            itemBuilder: (BuildContext context, int index) {
+              final randomIndex = Random().nextInt(books.books!.length);
+              return _buildItemBooks(books.books![randomIndex]);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+Container _searchField() {
+  void updateList() {
+    //
+  }
+
+  final TextEditingController _searchController = TextEditingController();
+  return Container(
+    margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+    decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.11),
+          blurRadius: 40,
+          spreadRadius: 0.0,
+        )
+      ],
+    ),
+    child: TextFormField(
+      controller: _searchController,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: EdgeInsets.all(15),
+        hintText: "Search",
+        prefixIcon: Icon(Icons.search_outlined),
+        //suffixIcon: Icon(Icons.filter_list),
+        suffixIcon: IconButton(
+          icon: Icon(Icons.search),
+          onPressed: () {},
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    ),
+  );
+}
+
+BottomNavigationBar bottomNavBar(BuildContext context) {
+  return BottomNavigationBar(
+    selectedItemColor: Colors.blue,
+    items: [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: 'Home',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.shopping_cart_outlined),
+        label: 'Cart',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.person_2_outlined),
+        label: 'Profile',
+      ),
+    ],
+    onTap: (int index) {
+      if (index == 0) {
+      } else if (index == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HalamanRequestBuku()),
+        );
+      } else if (index == 2) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HalamanProfile()),
+        );
+      }
+    },
+  );
 }

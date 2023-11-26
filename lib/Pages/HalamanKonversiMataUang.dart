@@ -43,9 +43,16 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
       padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: <Widget>[
           //SizedBox(height: 20),
-          Text('Masukan Nilai Mata Uang', style: TextStyle(fontSize: 18)),
+          Text(
+            'KONVERSI MATA UANG',
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'BebasNeue',
+              fontSize: 24.0,
+            ),
+          ),
           SizedBox(height: 10),
           TextField(
             keyboardType: TextInputType.number,
@@ -121,7 +128,7 @@ class _CurrencyConverterState extends State<CurrencyConverter> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Converted Amount:', style: TextStyle(fontSize: 18)),
+                Text('Jumlah Terkonversi:', style: TextStyle(fontSize: 18)),
                 SizedBox(height: 10),
                 _convertedAmount != 0
                     ? Text(
