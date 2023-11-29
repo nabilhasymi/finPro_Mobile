@@ -23,7 +23,7 @@ class _ClockPageState extends State<ClockPage> {
     super.initState();
     _format = DateFormat.jm();
 
-    _updateTime(); // Call the function once to initialize
+    _updateTime();
     _timer = Timer.periodic(Duration(seconds: 1), (Timer t) => _updateTime());
   }
 
@@ -67,16 +67,15 @@ class _ClockPageState extends State<ClockPage> {
                       Row(
                         children: [
                           Icon(Icons.pin_drop_outlined),
-                          Text(
-                            'Local Time:',
-                            style: TextStyle(fontSize: 18),
-                          ),
+                          Text('Local Time:', style: TextStyle(fontSize: 18)),
                         ],
                       ),
                       Text(
                         _time,
                         style: TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   )
@@ -97,28 +96,23 @@ class _ClockPageState extends State<ClockPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            FaIcon(
-                              FontAwesomeIcons.globe,
-                              size: 15,
-                            ),
-                            Text(
-                              ' WIB Time',
-                              style: TextStyle(fontSize: 16),
-                            ),
+                            FaIcon(FontAwesomeIcons.globe, size: 15),
+                            Text(' WIB Time', style: TextStyle(fontSize: 16)),
                           ],
                         ),
                         SizedBox(height: 4),
                         Text(
                           WIB,
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-
               Expanded(
                 child: Card(
                   elevation: 4.0,
@@ -143,14 +137,15 @@ class _ClockPageState extends State<ClockPage> {
                         Text(
                           WITA,
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-              //SizedBox(width: 4),
               Expanded(
                 child: Card(
                   elevation: 4.0,
@@ -175,7 +170,9 @@ class _ClockPageState extends State<ClockPage> {
                         Text(
                           WIT,
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
@@ -205,7 +202,10 @@ class _ClockPageState extends State<ClockPage> {
                   ),
                   Text(
                     London,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),

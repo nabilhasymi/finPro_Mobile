@@ -18,7 +18,6 @@ class _HalamanRequestBukuState extends State<HalamanRequestBuku> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _myBox = Hive.box(boxName);
   }
@@ -124,7 +123,6 @@ class _tambahBukuState extends State<tambahBuku> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _myBox = Hive.box(boxName);
   }
@@ -154,7 +152,6 @@ class _tambahBukuState extends State<tambahBuku> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 20),
               Icon(Icons.book_outlined,

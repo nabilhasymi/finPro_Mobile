@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailBooks extends StatelessWidget {
-  //final DetailedBooksModel booksData;
   final Books booksData;
   const DetailBooks({Key? key, required this.booksData}) : super(key: key);
 
@@ -19,7 +18,7 @@ class DetailBooks extends StatelessWidget {
       appBar: AppBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20), // Sesuaikan dengan keinginanmu
+            bottom: Radius.circular(20),
           ),
         ),
         backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
@@ -46,14 +45,14 @@ class DetailBooks extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.network(
-            booksData.image!, // Assuming imageUrl exists in the book data
-            height: 200, // Set height as needed
-            width: double.infinity, // Take full width
-            fit: BoxFit.fitHeight, // Adjust the image to cover the space
+            booksData.image!,
+            height: 200,
+            width: double.infinity,
+            fit: BoxFit.fitHeight,
           ),
           SizedBox(height: 20),
           Text(
-            booksData.title!, // Assuming title exists in the book data
+            booksData.title!,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

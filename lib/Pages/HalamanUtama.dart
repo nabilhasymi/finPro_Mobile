@@ -42,7 +42,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
       appBar: AppBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20), // Sesuaikan dengan keinginanmu
+            bottom: Radius.circular(20),
           ),
         ),
         backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),

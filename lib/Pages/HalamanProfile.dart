@@ -35,7 +35,7 @@ class _HalamanProfileState extends State<HalamanProfile> {
       appBar: AppBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(20), // Sesuaikan dengan keinginanmu
+            bottom: Radius.circular(20),
           ),
         ),
         backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
@@ -114,17 +114,15 @@ Container profile() {
     decoration: BoxDecoration(
       boxShadow: [
         BoxShadow(
-          color: Colors.black
-              .withOpacity(0.4), // Warna bayangan (hitam dengan opasitas 40%)
-          spreadRadius: 5, // Radius penyebaran bayangan
-          blurRadius: 7, // Radius blur bayangan
-          offset: Offset(0, 3), // Geser bayangan secara horizontal dan vertikal
+          color: Colors.black.withOpacity(0.4),
+          spreadRadius: 5,
+          blurRadius: 7,
+          offset: Offset(0, 3),
         ),
       ],
       image: DecorationImage(
-        image: AssetImage(
-            'assets/Background.jpg'), // Ganti dengan path gambar Anda
-        fit: BoxFit.cover, // Atur metode tata letak gambar
+        image: AssetImage('assets/Background.jpg'),
+        fit: BoxFit.cover,
       ),
     ),
     child: Padding(
@@ -164,7 +162,6 @@ Container kesanPesan() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        //SizedBox(height: 10.0),
         Card(
           elevation: 4,
           shape: RoundedRectangleBorder(

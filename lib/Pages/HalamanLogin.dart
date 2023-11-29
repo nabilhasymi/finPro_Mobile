@@ -18,9 +18,14 @@ class _HalamanLoginState extends State<HalamanLogin> {
 
   @override
   void initState() {
-// TODO: implement initState
     super.initState();
     check_if_already_login();
+  }
+
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   void check_if_already_login() async {
@@ -31,13 +36,6 @@ class _HalamanLoginState extends State<HalamanLogin> {
       Navigator.pushReplacement(
           context, new MaterialPageRoute(builder: (context) => HalamanUtama()));
     }
-  }
-
-  void dispose() {
-// Clean up the controller when the widget is disposed.
-    _usernameController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 
   // Enkripsi kata sandi sebelum disimpan
@@ -54,6 +52,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
     final enteredUsername = _usernameController.text;
     final enteredPassword = _passwordController.text;
 
+    // Cek apakah input username maupun password terisi
     if (enteredUsername.isEmpty || enteredPassword.isEmpty) {
       _showErrorDialog('Username dan Password harus terisi.');
       return;
@@ -94,6 +93,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
     );
   }
 
+  //fungsi lihat password
   void _passwordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
