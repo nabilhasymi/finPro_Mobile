@@ -54,6 +54,11 @@ class _HalamanLoginState extends State<HalamanLogin> {
     final enteredUsername = _usernameController.text;
     final enteredPassword = _passwordController.text;
 
+    if (enteredUsername.isEmpty || enteredPassword.isEmpty) {
+      _showErrorDialog('Username dan Password harus terisi.');
+      return;
+    }
+
     // Contoh validasi sederhana, bisa disesuaikan dengan kebutuhan
     if (enteredUsername == 'user' && enteredPassword == 'password') {
       final encryptedPassword = _encryptPassword(enteredPassword);
@@ -65,7 +70,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
         MaterialPageRoute(builder: (context) => HalamanUtama()),
       );
     } else {
-      _showErrorDialog('Login Gagal. Silahkan Coba Lagi');
+      _showErrorDialog("Login Gagal. Silahkan coba lagi");
     }
   }
 
@@ -98,7 +103,9 @@ class _HalamanLoginState extends State<HalamanLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(236, 227, 206, 1.0),
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
         title: Text(
           'Login',
           style: TextStyle(
@@ -148,6 +155,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
               onPressed: _login,
               child: Text('Login'),
               style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),

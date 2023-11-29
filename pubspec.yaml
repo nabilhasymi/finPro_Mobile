@@ -34,6 +34,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/Background.jpg
+    - assets/profile.jpeg
   fonts:
     - family: BebasNeue # Nama font yang akan digunakan dalam Flutter
       fonts:

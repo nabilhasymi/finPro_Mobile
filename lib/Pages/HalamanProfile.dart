@@ -134,7 +134,7 @@ Container profile() {
         children: <Widget>[
           CircleAvatar(
             radius: 50.0,
-            foregroundImage: AssetImage('../assets/profile.jpeg'),
+            foregroundImage: AssetImage('assets/profile.jpeg'),
           ),
           SizedBox(height: 10.0),
           Text(
