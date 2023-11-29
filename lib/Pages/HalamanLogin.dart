@@ -12,7 +12,7 @@ class HalamanLogin extends StatefulWidget {
 class _HalamanLoginState extends State<HalamanLogin> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  bool _obscureText = true;
   late SharedPreferences logindata;
   late bool newuser;
 
@@ -89,6 +89,12 @@ class _HalamanLoginState extends State<HalamanLogin> {
     );
   }
 
+  void _passwordVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,12 +130,18 @@ class _HalamanLoginState extends State<HalamanLogin> {
             SizedBox(height: 20),
             TextFormField(
               controller: _passwordController,
+              obscureText: _obscureText,
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.lock),
+                suffixIcon: GestureDetector(
+                  onTap: _passwordVisibility,
+                  child: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                  ),
+                ),
               ),
-              obscureText: true,
             ),
             SizedBox(height: 20),
             ElevatedButton(

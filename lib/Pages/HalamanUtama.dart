@@ -38,8 +38,14 @@ class _HalamanUtamaState extends State<HalamanUtama> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(210, 171, 196, 191),
+      backgroundColor: Color.fromRGBO(236, 227, 206, 1.0),
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20), // Sesuaikan dengan keinginanmu
+          ),
+        ),
+        backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
         title: Text(
           "Welcome $username",
           style: TextStyle(
@@ -327,36 +333,43 @@ Container _searchField() {
   );
 }
 
-BottomNavigationBar bottomNavBar(BuildContext context) {
-  return BottomNavigationBar(
-    selectedItemColor: Colors.blue,
-    items: [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.shopping_cart_outlined),
-        label: 'Cart',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person_2_outlined),
-        label: 'Profile',
-      ),
-    ],
-    onTap: (int index) {
-      if (index == 0) {
-      } else if (index == 1) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HalamanRequestBuku()),
-        );
-      } else if (index == 2) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HalamanProfile()),
-        );
-      }
-    },
+ClipRRect bottomNavBar(BuildContext context) {
+  return ClipRRect(
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(20),
+      topRight: Radius.circular(20),
+    ),
+    child: BottomNavigationBar(
+      backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
+      selectedItemColor: Colors.white,
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.library_add_outlined),
+          label: 'Request',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_2_outlined),
+          label: 'Profile',
+        ),
+      ],
+      onTap: (int index) {
+        if (index == 0) {
+        } else if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HalamanRequestBuku()),
+          );
+        } else if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HalamanProfile()),
+          );
+        }
+      },
+    ),
   );
 }

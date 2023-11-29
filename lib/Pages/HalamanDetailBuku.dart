@@ -1,3 +1,5 @@
+//import 'package:url_launcher/link.dart';
+import 'dart:async';
 import 'package:ebook_shop/Model/recentBooksModel.dart';
 import 'package:ebook_shop/Pages/HalamanProfile.dart';
 import 'package:ebook_shop/Pages/HalamanRequestBuku.dart';
@@ -13,7 +15,14 @@ class DetailBooks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(236, 227, 206, 1.0),
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20), // Sesuaikan dengan keinginanmu
+          ),
+        ),
+        backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
         title: Text(booksData.title! + " Detail"),
       ),
       body: _buildBookDetail(),
@@ -22,6 +31,7 @@ class DetailBooks extends StatelessWidget {
           _launchURL(booksData.url!);
         },
         icon: Icon(Icons.link),
+        backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
         label: Text('See More...'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -50,62 +60,131 @@ class DetailBooks extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          Text(
-            'SubTitle: ${booksData.subtitle}',
-            style: TextStyle(fontSize: 16),
+          Table(
+            columnWidths: {
+              0: FlexColumnWidth(1),
+              1: FlexColumnWidth(3),
+            },
+            children: [
+              TableRow(
+                children: [
+                  TableCell(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'ID',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  TableCell(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        booksData.id.toString(),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              TableRow(
+                children: [
+                  TableCell(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Sub Title',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  TableCell(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        booksData.subtitle!,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              TableRow(
+                children: [
+                  TableCell(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Penulis',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  TableCell(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        booksData.authors ?? "N/A",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          SizedBox(height: 10),
-          Text(
-            'Penulis: ${booksData.authors}',
-            style: TextStyle(fontSize: 16),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Deskripsi: ',
-            style: TextStyle(fontSize: 16),
-          ),
-          // Other book details can be added here
         ],
       ),
     );
   }
 }
 
-BottomNavigationBar bottomNavBar(BuildContext context) {
-  return BottomNavigationBar(
-    selectedItemColor: Colors.blue,
-    items: [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.shopping_cart_outlined),
-        label: 'Cart',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person_2_outlined),
-        label: 'Profile',
-      ),
-    ],
-    onTap: (int index) {
-      if (index == 0) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HalamanUtama()),
-        );
-      } else if (index == 1) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HalamanRequestBuku()),
-        );
-      } else if (index == 2) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HalamanProfile()),
-        );
-      }
-    },
+ClipRRect bottomNavBar(BuildContext context) {
+  return ClipRRect(
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(20),
+      topRight: Radius.circular(20),
+    ),
+    child: BottomNavigationBar(
+      backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
+      selectedItemColor: Colors.white,
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.library_add_outlined),
+          label: 'Request',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_2_outlined),
+          label: 'Profile',
+        ),
+      ],
+      onTap: (int index) {
+        if (index == 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HalamanUtama()),
+          );
+        } else if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HalamanRequestBuku()),
+          );
+        } else if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HalamanProfile()),
+          );
+        }
+      },
+    ),
   );
 }
 

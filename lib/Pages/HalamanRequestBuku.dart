@@ -26,7 +26,14 @@ class _HalamanRequestBukuState extends State<HalamanRequestBuku> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(236, 227, 206, 1.0),
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20), // Sesuaikan dengan keinginanmu
+          ),
+        ),
+        backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
         title: Text(
           "REQUEST BUKU",
           style: TextStyle(
@@ -43,7 +50,14 @@ class _HalamanRequestBukuState extends State<HalamanRequestBuku> {
         builder: (BuildContext context, value, Widget? child) {
           if (_myBox.values.isEmpty) {
             return Center(
-              child: Text("Tidak ada Request"),
+              child: Text(
+                "Request Kosong",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'BebasNeue',
+                  fontSize: 28.0,
+                ),
+              ),
             );
           }
           return ListView.builder(
@@ -88,6 +102,7 @@ class _HalamanRequestBukuState extends State<HalamanRequestBuku> {
           }));
         },
         child: Icon(Icons.add),
+        backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
       ),
       bottomNavigationBar: bottomNavBar(context),
     );
@@ -117,7 +132,14 @@ class _tambahBukuState extends State<tambahBuku> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(236, 227, 206, 1.0),
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20), // Sesuaikan dengan keinginanmu
+          ),
+        ),
+        backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
         title: Text(
           "Request Buku",
           style: TextStyle(
@@ -135,8 +157,8 @@ class _tambahBukuState extends State<tambahBuku> {
             //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 20),
-              Icon(Icons.book_online_outlined,
-                  size: 150, color: Colors.lightBlue.shade500),
+              Icon(Icons.book_outlined,
+                  size: 150, color: Color.fromRGBO(115, 144, 114, 1.0)),
               SizedBox(height: 20),
               TextFormField(
                 controller: _TitleController,
@@ -173,6 +195,7 @@ class _tambahBukuState extends State<tambahBuku> {
                   child: Text("Submit"),
                 ),
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -187,38 +210,45 @@ class _tambahBukuState extends State<tambahBuku> {
   }
 }
 
-BottomNavigationBar bottomNavBar(BuildContext context) {
+ClipRRect bottomNavBar(BuildContext context) {
   int _selectedIndex = 1;
-  return BottomNavigationBar(
-    selectedItemColor: Colors.blue,
-    items: [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.shopping_cart_outlined),
-        label: 'Cart',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person_2_outlined),
-        label: 'Profile',
-      ),
-    ],
-    currentIndex: _selectedIndex,
-    onTap: (int index) {
-      if (index == 0) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HalamanUtama()),
-        );
-      } else if (index == 1) {
-      } else if (index == 2) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HalamanProfile()),
-        );
-      }
-    },
+  return ClipRRect(
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(20),
+      topRight: Radius.circular(20),
+    ),
+    child: BottomNavigationBar(
+      backgroundColor: Color.fromRGBO(115, 144, 114, 1.0),
+      selectedItemColor: Colors.white,
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.library_add_outlined),
+          label: 'Request',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_2_outlined),
+          label: 'Profile',
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      onTap: (int index) {
+        if (index == 0) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HalamanUtama()),
+          );
+        } else if (index == 1) {
+        } else if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HalamanProfile()),
+          );
+        }
+      },
+    ),
   );
 }
